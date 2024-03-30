@@ -32,6 +32,18 @@ export const DashboardMenu = [
 	},
 	{
 		id: uuid(),
+		title: 'Vehicle List',
+		icon: 'list',
+		link: '/vehicle-list'
+	},
+	{
+		id: uuid(),
+		title: 'Servicing Items',
+		icon: 'circle',
+		link: '/servicing-items'
+	},
+	{
+		id: uuid(),
 		title: 'LAYOUTS & PAGES',
 		grouptitle: true
 	},
