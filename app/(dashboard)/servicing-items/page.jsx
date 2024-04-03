@@ -41,7 +41,7 @@ const Service = () => {
     };
 
     return (
-        <Container fluid className="p-6">
+        <Container fluid className="p-5">
             <PageHeadingWithButton heading="Servicing Items" buttonName="Add New Item" />
             <Table>
                 <thead>
