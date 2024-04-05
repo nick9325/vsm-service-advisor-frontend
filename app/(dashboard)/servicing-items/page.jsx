@@ -43,6 +43,7 @@ const Service = () => {
     return (
         <Container fluid className="p-5">
             <PageHeadingWithButton heading="Servicing Items" buttonName="Add New Item" />
+            <div style={{ overflowX: 'auto' }}>
             <Table>
                 <thead>
                     <tr>
@@ -79,9 +80,10 @@ const Service = () => {
                     ))}
                 </tbody>
             </Table>
-    
+            </div>
             <PageHeading heading="Selected Items" />
-            <Table>
+            <div style={{ overflowX: 'auto' }}>
+            <Table responsive style={{ marginBottom: '20px' }}>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -117,7 +119,8 @@ const Service = () => {
                     </tr>
                 </tfoot>
             </Table>
-            <div>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
                 <Link href="">
                     <Button variant="primary">Generate Record</Button>
                 </Link>
