@@ -81,7 +81,7 @@ const Service = () => {
                 </tbody>
             </Table>
             </div>
-
+            <br/>
             <PageHeading heading="Selected Items" />
             <div style={{ overflowY: 'auto'}}>
             <Table responsive style={{ minWidth: '500px', whiteSpace: 'nowrap' }}>
