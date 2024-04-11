@@ -14,8 +14,7 @@ const VehicleCard = (props) => {
     const toggleDescription = () => {
         setDescriptionExpanded(!descriptionExpanded);
     };
-
-
+    
     const startService = async () => {
         toast.dismiss();
         toast.loading("Starting service..");
@@ -71,7 +70,7 @@ const VehicleCard = (props) => {
                         <FaCar size={24} />
                         <span className="fs-5">Vehicle Details</span>
                     </div>
-                    <Badge bg={'success'}>{props.serviceStatus}</Badge>
+                    <Badge bg={'warning'}>{props.serviceStatus}</Badge>
                 </Card.Title>
                 <Card.Text className="mb-3">
                     <strong>Vehicle Number:</strong> {props.vehicleNumber}

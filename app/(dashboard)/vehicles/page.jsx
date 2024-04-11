@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import VehicleCard from '../../../components/VehicleCard';
 import Spinner from 'react-bootstrap/Spinner';
-import { Link } from 'react-bootstrap-icons';
 import { PageHeading } from 'widgets';
 
 
@@ -31,8 +30,6 @@ const UnderService = () => {
       method: "GET",
       headers: myHeaders,
     };
-
-
 
 
 
@@ -73,7 +70,7 @@ const UnderService = () => {
 
         {!loading ?
           <div className="row">
-            {vehicleData.length>=1 ? vehicleData.map((vehicle) => (
+            {vehicleData?.length>=1 ? vehicleData.map((vehicle) => (
               <div className="col-xl-4 col-md-6 col-sm-8 pb-3" key={vehicle.id}>
 
                 <VehicleCard vehicleId={vehicle.id} ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'Pending'} buttonName={'Start Service'} />
