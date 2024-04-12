@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import VehicleCard from '../../../components/VehicleCard';
 import Spinner from 'react-bootstrap/Spinner';
 import { PageHeading } from 'widgets';
+import { GetScheduledVehicles } from '../../../constants/VehicleEndpoints';
 
 
 
@@ -33,7 +34,9 @@ const UnderService = () => {
 
 
 
-    let response = await fetch(`https://vehicle-service-management.onrender.com/vehicle/get/all`, requestOptions);
+    let response = await fetch(`${GetScheduledVehicles}2`, requestOptions);
+
+    console.log(response);
 
 
     if (response.ok) {
