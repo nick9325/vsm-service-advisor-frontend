@@ -104,7 +104,7 @@ const Service = () => {
                             <th>Quantity</th>
                             <th>Cost per Item (&#8377;)</th>
                             <th>Total Cost (&#8377;)</th>
-                            <th>Action</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
