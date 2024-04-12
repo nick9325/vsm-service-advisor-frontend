@@ -3,12 +3,13 @@
 
 import { Row, Col, Card, Form, Button, } from 'react-bootstrap';
 import Link from 'next/link';
-
 import useMounted from 'hooks/useMounted';
 import { useState } from 'react';
 import { SignInAdmin } from '../../../../constants/AuthConstants';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+
+
 
 const SignIn = () => {
 
@@ -18,7 +19,9 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const type = "SERVICE_ADVISOR";
 
+
   const hasMounted = useMounted();
+
 
 
   const signIn = async () => {
@@ -50,6 +53,7 @@ const SignIn = () => {
       let res = await response.json();
       console.log("this is res:", res.token);
       localStorage.setItem('token', res.token);
+
       router.push('/');
       toast.dismiss()
       toast.success('Signed In successfully!')
@@ -95,7 +99,7 @@ const SignIn = () => {
             </div>
 
             {hasMounted &&
-              <Form >
+              <Form>
                 <Form.Group className="mb-3" controlId="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
@@ -136,7 +140,6 @@ const SignIn = () => {
                 </div>
               </Form>
             }
-
 
           </Card.Body>
         </Card>

@@ -6,13 +6,13 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import VehicleCard from '../../../components/VehicleCard';
 import Spinner from 'react-bootstrap/Spinner';
-import { GetScheduledVehicles } from '../../../constants/VehicleEndpoints';
+import { GetServicedVehicles } from '../../../constants/VehicleEndpoints';
 import VehiclesNav from '../../../components/VehicleNav';
 import { useGlobalContext } from '../context/globalContext';
 
 
 
-const UnderService = () => {
+const Serviced = () => {
 
 
   const router = useRouter();
@@ -34,11 +34,9 @@ const UnderService = () => {
       headers: myHeaders,
     };
 
-    console.log(user)
 
 
-
-    let response = await fetch(`${GetScheduledVehicles}${user?.id}`, requestOptions);
+    let response = await fetch(`${GetServicedVehicles}${user.id}`, requestOptions);
 
     console.log(response);
 
@@ -66,7 +64,6 @@ const UnderService = () => {
     if(user){
       fetchVehicles();
     }
-   
   }, [user]);
 
 
@@ -74,8 +71,7 @@ const UnderService = () => {
   return (
     <Container fluid className="p-6">
 
-
-      <VehiclesNav />
+        <VehiclesNav/>
 
       <div className="py-3">
 
@@ -84,7 +80,7 @@ const UnderService = () => {
             {vehicleData?.length>=1 ? vehicleData.map((vehicle) => (
               <div className="col-xxl-3 col-xl-4 col-md-6 col-sm-8 pb-3" key={vehicle.id}>
 
-                <VehicleCard vehicleId={vehicle.id} ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'Pending'} buttonName={'Start Service'} />
+                <VehicleCard vehicleId={vehicle.id} ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'Completed'}  />
 
               </div>
             )) : <div className='text-center'>
@@ -95,10 +91,13 @@ const UnderService = () => {
             <Spinner animation="border" />
           </div>}
 
+
       </div>
+
+
 
     </Container>
   )
 }
 
-export default UnderService;
+export default Serviced;
