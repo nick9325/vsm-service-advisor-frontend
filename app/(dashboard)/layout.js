@@ -8,6 +8,7 @@ import 'styles/theme.scss';
 // import sub components
 import NavbarVertical from '/layouts/navbars/NavbarVertical';
 import NavbarTop from '/layouts/navbars/NavbarTop';
+import { GlobalContextProvider } from './context/globalContext';
 
 export default function DashboardLayout({ children }) {
 	const [showMenu, setShowMenu] = useState(true);
@@ -32,7 +33,13 @@ export default function DashboardLayout({ children }) {
 						}}
 					/>
 				</div>
-				{children}
+
+
+				<GlobalContextProvider>
+					{children}
+				</GlobalContextProvider>
+
+
 			</div>
 		</div>
 	)
