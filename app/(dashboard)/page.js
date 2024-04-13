@@ -1,18 +1,13 @@
 'use client'
-// import node module libraries
+
 import { Fragment } from "react";
 import Link from 'next/link';
 import { Container, Col, Row } from 'react-bootstrap';
 
-// import widget/custom components
 import { StatRightTopIcon } from "widgets";
 
-// import sub components
-import { ActiveProjects, Teams, 
-    TasksPerformance 
-} from "sub-components";
 
-// import required data files
+
 import ProjectsStatsData from "data/dashboard/ProjectsStatsData";
 
 const Home = () => {
@@ -22,7 +17,7 @@ const Home = () => {
             <Container fluid className="mt-n22 px-6">
                 <Row>
                     <Col lg={12} md={12} xs={12}>
-                        {/* Page header */}
+                   
                         <div>
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="mb-2 mb-lg-0">
@@ -43,24 +38,7 @@ const Home = () => {
                     })}
                 </Row>
 
-                {/* Active Projects  */}
-                <ActiveProjects />
-
-                <Row className="my-6">
-                    <Col xl={4} lg={12} md={12} xs={12} className="mb-6 mb-xl-0">
-
-                        {/* Tasks Performance  */}
-                        <TasksPerformance />
-
-                    </Col>
-                    {/* card  */}
-                    <Col xl={8} lg={12} md={12} xs={12}>
-
-                        {/* Teams  */}
-                        <Teams />
-
-                    </Col>
-                </Row>
+               
             </Container>
         </Fragment>
     )
