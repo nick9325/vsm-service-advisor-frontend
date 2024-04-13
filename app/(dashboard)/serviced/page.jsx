@@ -24,7 +24,7 @@ const Serviced = () => {
   const fetchVehicles = async () => {
 
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token_sa');
     console.log(token)
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);

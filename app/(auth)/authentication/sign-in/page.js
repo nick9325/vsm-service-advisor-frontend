@@ -52,7 +52,7 @@ const SignIn = () => {
     if (response.ok) {
       let res = await response.json();
       console.log("this is res:", res.token);
-      localStorage.setItem('token', res.token);
+      localStorage.setItem('token_sa', res.token);
 
       router.push('/');
       toast.dismiss()

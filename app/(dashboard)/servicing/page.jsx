@@ -1,9 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { Container, Table, Button, Form, Row, Col } from 'react-bootstrap';
-import { PageHeadingWithButton } from 'widgets';
 import { PageHeading } from 'widgets';
 
 const Service = () => {
