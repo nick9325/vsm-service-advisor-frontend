@@ -3,16 +3,18 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { GetCurrentUser } from '../../../constants/AuthConstants';
+import { useRouter } from 'next/navigation';
 
 const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
+  const router = useRouter();
 
   const fetchCurrentUser = async () => {
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token_sa');
     console.log(token)
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -44,7 +46,7 @@ export const GlobalContextProvider = ({ children }) => {
 
 
   return (
-    <GlobalContext.Provider value={{ user }}>
+    <GlobalContext.Provider value={{ user, setUser }}>
       {children}
     </GlobalContext.Provider>
   );
