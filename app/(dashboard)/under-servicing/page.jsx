@@ -4,15 +4,15 @@ import { Container } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import ServicedVehicleCard from '../../../components/ServicedVehicleCard';
+import UnderServicingCard from '../../../components//UnderServicingCard';
 import Spinner from 'react-bootstrap/Spinner';
-import { GetServicedVehicles } from '../../../constants/VehicleEndpoints';
+import { GetUnderServicingVehicles } from '../../../constants/VehicleEndpoints';
 import VehiclesNav from '../../../components/VehicleNav';
 import { useGlobalContext } from '../context/globalContext';
 
 
 
-const Serviced = () => {
+const UnderServicing = () => {
 
 
   const router = useRouter();
@@ -36,7 +36,7 @@ const Serviced = () => {
 
 
 
-    let response = await fetch(`${GetServicedVehicles}${user.id}`, requestOptions);
+    let response = await fetch(`${GetUnderServicingVehicles}`, requestOptions);
 
     console.log(response);
 
@@ -80,7 +80,7 @@ const Serviced = () => {
             {vehicleData?.length>=1 ? vehicleData.map((vehicle) => (
               <div className="col-xxl-3 col-xl-4 col-md-6 col-sm-8 pb-3" key={vehicle.id}>
 
-                <ServicedVehicleCard vehicleId={vehicle.id} ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'Completed'}  />
+                <UnderServicingCard vehicleId={vehicle.id} ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'Servicing'} buttonName={'Continue Servicing'}  />
 
               </div>
             )) : <div className='text-center'>
@@ -100,4 +100,4 @@ const Serviced = () => {
   )
 }
 
-export default Serviced;
+export default UnderServicing;

@@ -19,10 +19,16 @@ const VehiclesNav = () => {
                 </Link>
             </li>
             <li className="nav-item">
+                <Link className={`nav-link ${pathname === '/under-servicing' ? 'active' : ''}`} href="/under-servicing">
+                    <span className="text-nowrap">Under Servicing</span>
+                </Link>
+            </li>
+            <li className="nav-item">
                 <Link className={`nav-link ${pathname === '/serviced' ? 'active' : ''}`} href="/serviced">
                     <span className="text-nowrap">Service Completed</span>
                 </Link>
             </li>
+
             
         </ul>
     </div>
