@@ -12,13 +12,7 @@ export const DashboardMenu = [
 		title: 'Vehicles',
 		icon: 'truck',
 		link: '/vehicles'
-	},
-	{
-		id: uuid(),
-		title: 'Servicing',
-		icon: 'circle',
-		link: '/servicing'
-	},
+	}
 	
 ];
 
