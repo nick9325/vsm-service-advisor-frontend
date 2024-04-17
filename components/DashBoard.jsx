@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Col, Row } from 'react-bootstrap';
 import StatRightTopIcon from "./StatRightTopIcon";
 import { GetVehiclesSummary } from "../constants/VehicleEndpoints";
@@ -34,7 +34,7 @@ const DashBoard = () => {
             };
 
             try {
-                let response = await fetch(`${GetVehiclesSummary}${user.id}`, requestOptions);
+                let response = await fetch(`${GetVehiclesSummary}${user?.id}`, requestOptions);
                 console.log(response);
 
                 if (response.ok) {
@@ -62,7 +62,7 @@ const DashBoard = () => {
     };
 
 
-    useState(() => {
+    useEffect(() => {
         if (user) {
             fetchVehiclesSummary();
         }
