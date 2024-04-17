@@ -5,3 +5,5 @@ export const GetScheduledVehicles = `${BaseUrl}/vehicle/get/scheduled?serviceAdv
 export const GetServicedVehicles = `${BaseUrl}/vehicle/get/serviced?serviceAdvisorId=`;
 
 export const GetUnderServicingVehicles = `${BaseUrl}/vehicle/all/underServicing`;
+
+export const GetVehiclesSummary = `${BaseUrl}/serviceAdvisor/summary/`;
