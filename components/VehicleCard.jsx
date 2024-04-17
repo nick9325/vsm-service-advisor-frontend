@@ -31,6 +31,7 @@ const VehicleCard = (props) => {
     
         try {
             let response = await fetch(`${PostStartService}${props.vehicleNumber}`, requestOptions);
+            console.log(response.url)
     
             if (response.ok) {
                 

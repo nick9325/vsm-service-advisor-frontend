@@ -31,6 +31,7 @@ const Service = () => {
         const requestOptions = {
             method: 'GET',
             headers: myHeaders,
+        
         };
 
         try {
@@ -70,17 +71,20 @@ const Service = () => {
         const token = localStorage.getItem('token_sa');
         console.log(token)
         var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", `Bearer ${token}`);
 
         const selectedItemIds = selectedItems.map(item => item.id);
 
 
-        var raw = JSON.stringify(selectedItemIds);
+        const raw = JSON.stringify(selectedItemIds);
+
 
         const requestOptions = {
             method: "POST",
             headers: myHeaders,
             body: raw,
+            redirect: "follow",
         };
 
         try {
