@@ -156,7 +156,7 @@ const Service = () => {
                 <Row>
                     <Col lg={12} md={12} xs={12}>
                         <div className="border-bottom pb-4 mb-4 d-flex justify-content-between">
-                            <h3 className="mb-0 fw-bold">Owners</h3>
+                            <h3 className="mb-0 fw-bold">Servicing Items</h3>
                             <Button onClick={() => router.push('/servicing/add-item')} variant="primary" className="">
                                 Add New Item
                             </Button>
