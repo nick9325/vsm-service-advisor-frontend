@@ -21,24 +21,21 @@ const Service = () => {
 
     }, [router.asPath]);
 
-
-
     const fetchItems = async () => {
-
         const token = localStorage.getItem('token_sa');
         const myHeaders = new Headers();
         myHeaders.append('Authorization', `Bearer ${token}`);
         const requestOptions = {
             method: 'GET',
             headers: myHeaders,
-        
         };
 
         try {
             const response = await fetch(`${GetAllItems}`, requestOptions);
             if (response.ok) {
                 const workItems = await response.json();
-                setItems(workItems);
+                const itemsWithQuantity = workItems.map(item => ({ ...item, quantity: 1 }));
+                setItems(itemsWithQuantity);
                 setLoading(false);
             } else if (response.status === 401) {
                 setLoading(false);
@@ -62,34 +59,30 @@ const Service = () => {
         fetchItems();
     }, []);
 
-
-
     const completeService = async () => {
         toast.dismiss();
         toast.loading("Completing service..");
-
+    
         const token = localStorage.getItem('token_sa');
-        console.log(token)
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", `Bearer ${token}`);
-
-        const selectedItemIds = selectedItems.map(item => item.id);
-
-
-        const raw = JSON.stringify(selectedItemIds);
-
-
+    
+        const requestBody = selectedItems.reduce((acc, item) => {
+            acc[item.id.toString()] = item.quantity;
+            return acc;
+        }, {});
+    
         const requestOptions = {
             method: "POST",
             headers: myHeaders,
-            body: raw,
+            body: JSON.stringify(requestBody),
             redirect: "follow",
         };
-
+    
         try {
             let response = await fetch(`${PostCompleteService}${vehicleNumber}`, requestOptions);
-
+    
             if (response.ok) {
                 toast.dismiss();
                 toast.success('Service completed successfully!');
@@ -100,7 +93,7 @@ const Service = () => {
                 router.push('/authentication/sign-in');
             } else {
                 toast.dismiss();
-                toast.error('Failed to complte service');
+                toast.error('Failed to complete service');
             }
         } catch (error) {
             console.error('Error completing service:', error);
@@ -108,42 +101,35 @@ const Service = () => {
             toast.error('Failed to complete service');
         }
     }
-
-
-
-
+    
 
     const handleCompleteService = (e) => {
         e.preventDefault();
 
         if (selectedItems.length < 1) {
             toast.error('Please select work items');
+        } else {
+            completeService();
         }
-        else {
-            completeService()
-        }
-
     }
 
-
-
-
-
-
     const handleAddItem = (item) => {
-
         const isItemAlreadySelected = selectedItems.some(selectedItem => selectedItem.id === item.id);
-
-
+    
         if (!isItemAlreadySelected) {
-            const updatedSelectedItems = [...selectedItems, item];
+            const updatedSelectedItems = [...selectedItems, { ...item, quantity: 1 }];
+            setSelectedItems(updatedSelectedItems);
+        } else {
+            const updatedSelectedItems = selectedItems.map(selectedItem => {
+                if (selectedItem.id === item.id) {
+                    return { ...selectedItem, quantity: selectedItem.quantity + 1 };
+                }
+                return selectedItem;
+            });
             setSelectedItems(updatedSelectedItems);
         }
-
-        else {
-            toast.error('Item already added')
-        }
     };
+    
 
     const handleDeleteItem = (itemId) => {
         const updatedSelectedItems = selectedItems.filter(item => item.id !== itemId);
@@ -151,8 +137,10 @@ const Service = () => {
     };
 
     const calculateTotalCost = () => {
-        return selectedItems.reduce((total, item) => total + item.price, 0);
+        return selectedItems.reduce((total, item) => total + (item.price * item.quantity), 0);
     };
+
+    
 
     return (
         <Container fluid className="p-5">
@@ -168,41 +156,40 @@ const Service = () => {
                     </Col>
                 </Row>
 
-
-
                 {!loading ?
                     <div style={{ overflowY: 'auto' }}>
-
                         <Table responsive style={{ minWidth: '500px', whiteSpace: 'nowrap' }}>
                             <thead>
                                 <tr>
-                                    <th >#</th>
-                                    <th >Name</th>
-                                    <th >Cost (&#8377;)</th>
-                                    <th ></th>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Cost (&#8377;)</th>
+                                    <th>Selected Quantity</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {items.map((item, index) => (
                                     <tr key={item.id}>
-                                        <td >{index + 1}</td>
-                                        <td >{item.name}</td>
-                                        <td >{item.price}</td>
-                                        <td >
+                                        <td>{index + 1}</td>
+                                        <td>{item.name}</td>
+                                        <td>{item.price}</td>
+                                        <td>{selectedItems.find(i => i.id === item.id)?.quantity || 0}</td>
+                                        <td>
                                             <Button
                                                 variant="success"
                                                 size='sm'
                                                 className="me-2"
                                                 onClick={() => handleAddItem(item)}
                                             >
-                                                Add
+                                                Add +
                                             </Button>
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
-                        </Table> </div> : <div className='text-center'><Spinner animation="border" /> </div>}
-
+                        </Table>
+                    </div> : <div className='text-center'><Spinner animation="border" /></div>}
 
                 <br />
                 <PageHeading heading="Selected Items" />
@@ -210,19 +197,21 @@ const Service = () => {
                     <Table responsive style={{ minWidth: '500px', whiteSpace: 'nowrap' }}>
                         <thead>
                             <tr>
-                                <th ># </th>
-                                <th >Name </th>
-                                <th >Cost per Item (&#8377;)</th>
-                                <th ></th>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Cost per Item (&#8377;)</th>
+                                <th>Quantity</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {selectedItems.map((item, index) => (
                                 <tr key={item.id}>
-                                    <td >{index + 1}</td>
-                                    <td >{item.name}</td>
-                                    <td >{item.price}</td>
-                                    <td >
+                                    <td>{index + 1}</td>
+                                    <td>{item.name}</td>
+                                    <td>{item.price}</td>
+                                    <td>{item.quantity}</td>
+                                    <td>
                                         <Button
                                             variant="danger"
                                             size='sm'
@@ -236,9 +225,8 @@ const Service = () => {
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colSpan="2">Total Cost: </td>
-                                <td colSpan="2" >{calculateTotalCost()}  </td>
-
+                                <td colSpan="3">Total Cost:</td>
+                                <td colSpan="2">{calculateTotalCost()}</td>
                             </tr>
                         </tfoot>
                     </Table>
