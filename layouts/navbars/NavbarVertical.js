@@ -7,12 +7,12 @@ import { useMediaQuery } from 'react-responsive';
 import {
 	ListGroup,
 	Card,
-	Image,
 	Badge,
 } from 'react-bootstrap';
 import Accordion from 'react-bootstrap/Accordion';
 import AccordionContext from 'react-bootstrap/AccordionContext';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
+import Image from 'next/image';
 
 // import simple bar scrolling used for notification item scrolling
 import SimpleBar from 'simplebar-react';
@@ -99,25 +99,26 @@ const NavbarVertical = (props) => {
 			<SimpleBar style={{ maxHeight: '100vh' }}>
 				<div className="nav-scroller">
 					<Link href="/" className="navbar-brand">
-						<Image src="/images/brand/logo/logo.svg" alt="" />
+						<Image
+						 height={50} width={100} src="/images/brand/logo/logo1.png" alt="logo" />
 					</Link>
 				</div>				
-				{/* Dashboard Menu */}
+			
 				<Accordion defaultActiveKey="0" as="ul" className="navbar-nav flex-column">
 					{DashboardMenu.map(function (menu, index) {
 						if (menu.grouptitle) {
 							return (
 								<Card bsPrefix="nav-item" key={index}>
-									{/* group title item */}
+								
 									<div className="navbar-heading">{menu.title}</div>
-									{/* end of group title item */}
+								
 								</Card>
 							);
 						} else {
 							if (menu.children) {
 								return (
 									<Fragment key={index}>
-										{/* main menu / root menu level / root items */}
+									
 										<CustomToggle eventKey={index} icon={menu.icon}>
 											{menu.title}
 											{menu.badge ? (
@@ -132,7 +133,7 @@ const NavbarVertical = (props) => {
 													if (menuLevel1Item.children) {
 														return (
 															<ListGroup.Item as="li" bsPrefix="nav-item" key={menuLevel1Index}>
-																{/* first level menu started  */}
+														
 																<Accordion defaultActiveKey="0" className="navbar-nav flex-column">
 																	<CustomToggleLevel2 eventKey={0}>
 																		{menuLevel1Item.title}
