@@ -6,13 +6,13 @@ import { usePathname   } from 'next/navigation'
 import { useMediaQuery } from 'react-responsive';
 import {
 	ListGroup,
+	Image,
 	Card,
 	Badge,
 } from 'react-bootstrap';
 import Accordion from 'react-bootstrap/Accordion';
 import AccordionContext from 'react-bootstrap/AccordionContext';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
-import Image from 'next/image';
 
 // import simple bar scrolling used for notification item scrolling
 import SimpleBar from 'simplebar-react';
@@ -97,12 +97,11 @@ const NavbarVertical = (props) => {
 	return (
 		<Fragment>
 			<SimpleBar style={{ maxHeight: '100vh' }}>
-				<div className="nav-scroller">
+			<div className="nav-scroller">
 					<Link href="/" className="navbar-brand">
-						<Image
-						 height={50} width={100} src="/images/brand/logo/logo1.png" alt="logo" />
+					<h2 className='text-white mt-1 font'>Vehicare</h2>
 					</Link>
-				</div>				
+				</div>	
 			
 				<Accordion defaultActiveKey="0" as="ul" className="navbar-nav flex-column">
 					{DashboardMenu.map(function (menu, index) {
